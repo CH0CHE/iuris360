@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { MessageCircle, X } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { buildWhatsAppUrl, type ContactFormData } from '@/lib/whatsapp'
 
 export function WhatsAppButton() {
   const [isVisible, setIsVisible] = useState(false)
@@ -22,10 +23,26 @@ export function WhatsAppButton() {
     }
   }, [])
 
-  //JMJ::*Se actualizan variables de entorno a prefijo NEXT_PUBLIC_*
-  const phoneNumber = `${process.env.NEXT_PUBLIC_AREA_CODE}${process.env.NEXT_PUBLIC_PHONE_CONTACTO}`
-  const message = encodeURIComponent('Hola, me gustaría obtener información sobre sus servicios legales.')
-  const whatsappUrl = `https://wa.me/${phoneNumber}?text=${message}`
+  //JMJ::*Se obtiene URL de WhatsApp con datos del formulario guardados en sesión*
+  const getWhatsAppUrl = () => {
+    if (typeof window !== 'undefined') {
+      try {
+        const stored = sessionStorage.getItem('contactFormData')
+        if (stored) {
+          return buildWhatsAppUrl(JSON.parse(stored) as ContactFormData)
+        }
+      } catch {
+        //JMJ::*Se ignora error al leer datos del formulario en sesión*
+      }
+    }
+
+    return buildWhatsAppUrl()
+  }
+
+  const handleWhatsAppClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault()
+    window.open(getWhatsAppUrl(), '_blank', 'noopener,noreferrer')
+  }
 
   return (
     <div
@@ -56,7 +73,8 @@ export function WhatsAppButton() {
 
       {/* Button */}
       <Link
-        href={whatsappUrl}
+        href={buildWhatsAppUrl()}
+        onClick={handleWhatsAppClick}
         target="_blank"
         className="group flex items-center gap-3 bg-[#25D366] hover:bg-[#20BD5A] text-white px-5 py-4 rounded-full shadow-lg hover:shadow-xl transition-all hover:scale-105"
         aria-label="Contactar por WhatsApp"

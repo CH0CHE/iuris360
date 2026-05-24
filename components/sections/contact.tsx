@@ -1,11 +1,12 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Phone, Mail, Clock, Send, MessageCircle } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import Link from 'next/link'
+import { buildWhatsAppUrl } from '@/lib/whatsapp'
 
 //JMJ::*Se mueve contactInfo dentro del componente para leer variables NEXT_PUBLIC_ en tiempo de render*
 function getContactInfo() {
@@ -52,12 +53,17 @@ export function ContactSection() {
     message: ''
   })
 
+  //JMJ::*Se guardan datos del formulario en sesión para botones de WhatsApp*
+  useEffect(() => {
+    sessionStorage.setItem('contactFormData', JSON.stringify(formData))
+  }, [formData])
+
+  //JMJ::*Se genera URL de WhatsApp con datos del formulario de contacto*
+  const whatsappUrl = buildWhatsAppUrl(formData)
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    // Here you would handle the form submission
-    console.log('[v0] Form submitted:', formData)
-    alert('Gracias por su mensaje. Nos pondremos en contacto pronto.')
-    setFormData({ name: '', email: '', phone: '', subject: '', message: '' })
+    window.open(buildWhatsAppUrl(formData), '_blank', 'noopener,noreferrer')
   }
 
   return (
@@ -84,28 +90,33 @@ export function ContactSection() {
               Información de Contacto
             </h3>
             
-            {contactInfo.map((info, index) => (
-              <div key={index} className="flex gap-4">
-                <div className="w-12 h-12 rounded-lg bg-accent/10 flex items-center justify-center flex-shrink-0">
-                  <info.icon className="h-5 w-5 text-accent" />
+            {contactInfo.map((info, index) => {
+              //JMJ::*Se usa URL dinámica de WhatsApp con datos del formulario*
+              const href = info.title === 'WhatsApp' ? whatsappUrl : info.href
+
+              return (
+                <div key={index} className="flex gap-4">
+                  <div className="w-12 h-12 rounded-lg bg-accent/10 flex items-center justify-center flex-shrink-0">
+                    <info.icon className="h-5 w-5 text-accent" />
+                  </div>
+                  <div>
+                    <p className="font-semibold text-primary">{info.title}</p>
+                    {href ? (
+                      <Link 
+                        href={href}
+                        target={href.startsWith('http') ? '_blank' : undefined}
+                        className="text-muted-foreground hover:text-accent transition-colors"
+                      >
+                        {info.value}
+                      </Link>
+                    ) : (
+                      <p className="text-muted-foreground">{info.value}</p>
+                    )}
+                    <p className="text-sm text-muted-foreground/70">{info.description}</p>
+                  </div>
                 </div>
-                <div>
-                  <p className="font-semibold text-primary">{info.title}</p>
-                  {info.href ? (
-                    <Link 
-                      href={info.href}
-                      target={info.href.startsWith('http') ? '_blank' : undefined}
-                      className="text-muted-foreground hover:text-accent transition-colors"
-                    >
-                      {info.value}
-                    </Link>
-                  ) : (
-                    <p className="text-muted-foreground">{info.value}</p>
-                  )}
-                  <p className="text-sm text-muted-foreground/70">{info.description}</p>
-                </div>
-              </div>
-            ))}
+              )
+            })}
 
             {/* Social Media */}
             <div className="pt-6 border-t border-border">
