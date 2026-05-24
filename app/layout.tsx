@@ -18,6 +18,7 @@ const inter = Inter({
 })
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://ch0che.github.io/iuris360'),
   title: 'Bufete Jurídico | Especialistas en Divorcios',
   description: 'Somos un bufete jurídico especializado en divorcios. Ofrecemos asesoría legal profesional, confidencial y de confianza. Herencias, compra-venta, donaciones, derecho laboral y penal.',
   keywords: ['abogado divorcios', 'bufete jurídico', 'herencias', 'asesoría legal', 'abogado Guatemala'],
