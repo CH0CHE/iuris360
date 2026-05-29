@@ -25,13 +25,13 @@ function getContactInfo() {
       href: `https://wa.me/${process.env.NEXT_PUBLIC_AREA_CODE}${process.env.NEXT_PUBLIC_PHONE_CONTACTO}`,
       description: 'Respuesta inmediata'
     },
-    {
+    /*{
       icon: Mail,
       title: 'Email',
       value: process.env.NEXT_PUBLIC_EMAIL_CONTACTO,
       href: `mailto:${process.env.NEXT_PUBLIC_EMAIL_CONTACTO}`,
       description: 'Escríbanos'
-    },
+    },*/
     {
       icon: Clock,
       title: 'Horario',
@@ -119,10 +119,10 @@ export function ContactSection() {
             })}
 
             {/* Social Media */}
-            <div className="pt-6 border-t border-border">
+            {/* <div className="pt-6 border-t border-border">
               <p className="font-semibold text-primary mb-4">Síguenos</p>
               <div className="flex gap-3">
-                <Link 
+                <Link
                   href="https://facebook.com" 
                   target="_blank"
                   className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center hover:bg-accent hover:text-accent-foreground transition-colors text-primary"
@@ -150,7 +150,7 @@ export function ContactSection() {
                   </svg>
                 </Link>
               </div>
-            </div>
+            </div> */}
           </div>
 
           {/* Contact Form */}
@@ -201,7 +201,7 @@ export function ContactSection() {
                     type="tel"
                     value={formData.phone}
                     onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                    placeholder="+52 55 1234 5678"
+                    placeholder="+502 1234 5678"
                     className="bg-background"
                   />
                 </div>
