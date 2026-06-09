@@ -142,7 +142,7 @@ export function Footer() {
             © {new Date().getFullYear()} Bufete Jurídico. Todos los derechos reservados.
           </p>
           <p className="text-xs text-primary-foreground/40 text-center sm:text-left">
-            Desarrollado por <a href={process.env.desarrollador_linkedin || 'https://www.linkedin.com/in/jmejia01/'} target="_blank" className="text-accent hover:text-accent-foreground transition-colors">{process.env.desarrollador || 'Josue Mejía'}</a>
+            Desarrollado por <a href={process.env.desarrollador_website || 'https://www.linkedin.com/in/jmejia01/'} target="_blank" className="text-accent hover:text-accent-foreground transition-colors">{process.env.desarrollador || 'Josue Mejía'}</a>
           </p>
           <div className="flex gap-6 text-sm text-primary-foreground/60">
             <Link href="#" className="hover:text-accent transition-colors">
