@@ -25,13 +25,13 @@ function getContactInfo() {
       href: `https://wa.me/${process.env.NEXT_PUBLIC_AREA_CODE}${process.env.NEXT_PUBLIC_PHONE_CONTACTO}`,
       description: 'Respuesta inmediata'
     },
-    /*{
+    {
       icon: Mail,
       title: 'Email',
       value: process.env.NEXT_PUBLIC_EMAIL_CONTACTO,
       href: `mailto:${process.env.NEXT_PUBLIC_EMAIL_CONTACTO}`,
       description: 'Escríbanos'
-    },*/
+    },
     {
       icon: Clock,
       title: 'Horario',

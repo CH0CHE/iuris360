@@ -117,7 +117,7 @@ export function Footer() {
                   +{process.env.NEXT_PUBLIC_AREA_CODE} {process.env.NEXT_PUBLIC_PHONE_CONTACTO}
                 </Link>
               </li>
-              {/* <li>
+               <li>
                 <Link
                   href={`mailto:${process.env.NEXT_PUBLIC_EMAIL_CONTACTO}`}
                   className="flex items-center gap-2 text-primary-foreground/80 hover:text-accent transition-colors text-sm"
@@ -125,7 +125,7 @@ export function Footer() {
                   <Mail className="h-4 w-4" />
                   {process.env.NEXT_PUBLIC_EMAIL_CONTACTO}
                 </Link>
-              </li> */}
+              </li>
               <li className="flex items-start gap-2 text-primary-foreground/80 text-sm">
                 <MapPin className="h-4 w-4 flex-shrink-0 mt-0.5" />
                 <span>{process.env.NEXT_PUBLIC_UBICACION_OFICINA}</span>
